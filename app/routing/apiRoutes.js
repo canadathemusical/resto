@@ -8,7 +8,7 @@ module.exports = function (app) {
 		return res.json(tableArray);
 	});
 
-	app.get("/api/waitinglist", function (req, res) {
+	app.get("/api/waitlist", function (req, res) {
 		return res.json(waitingArray);
 	});
 /////////////////////////////////////////////////
@@ -23,7 +23,7 @@ app.get("/api/tables/:customerName", function(req, res) {
 	}
 	return res.send("No customer table found...");
 });
-app.get("/api/waitinglist/:customerName", function(req, res) {
+app.get("/api/waitlist/:customerName", function(req, res) {
 	var chosen = req.params.customerName;
 	console.log(chosen);
 
@@ -36,11 +36,17 @@ app.get("/api/waitinglist/:customerName", function(req, res) {
 });
 	////////////////////////////////////////////////
 
-	app.post("api/new", function(req, res){
-		var newcharacter = req.body;
-		newcharacter.routeName = newcharacter.name.replace(/\s+/g, "").toLowerCase();
+	// app.post("api/newtable", function(req, res){
+	// 	var newTable = req.body;
+	// 	newTable.customerName = newTable.customerName.replace(/\s+/g, "").toLowerCase();
+	// 	tableArray.push(newTable);
+	// 	res.json(newTable);
+	// });
 
-		console.log(newcharacter);
-		characters.push(newcharacter);
-	});
+	app.post('/api/newtable', function(req, res) {
+        var newTable = req.body;
+        newTable.customerName = newTable.customerName.replace(/\s+/g, "").toLowerCase();
+        tableArray.push(newTable);
+        res.json(newTable);
+    });
 }
